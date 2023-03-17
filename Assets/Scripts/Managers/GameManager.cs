@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
         playerInstance = Instantiate(playerPrefab, spawnLocation.position, spawnLocation.rotation);
     }
 
-    void Respawn() {
+    public void Respawn() {
         playerInstance.transform.position = currentSpawnPoint.position;
     }
 }
