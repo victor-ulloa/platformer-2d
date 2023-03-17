@@ -4,8 +4,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour, PlayerInputs.IPlayerActionsActions
 {
     [SerializeField] float movementSpeed;
+    [SerializeField] float jumpForce;
 
-    Vector2 moveInput;
+    float moveInput;
 
     PlayerInputs playerInputs;
     Rigidbody2D rb;
@@ -30,19 +31,27 @@ public class PlayerController : MonoBehaviour, PlayerInputs.IPlayerActionsAction
 
     void Start()
     {
-        
+
     }
 
     private void FixedUpdate()
     {
-        rb.velocity = moveInput * movementSpeed;
+        rb.velocity = new Vector2(moveInput, rb.velocity.y);
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
         Vector2 input = context.ReadValue<Vector2>();
-        input.y = 0;
-        moveInput = input;
+        moveInput = input.x * movementSpeed;
+
+    }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Force);
+        }
 
     }
 }
