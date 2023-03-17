@@ -24,11 +24,11 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
     ""name"": ""PlayerInputs"",
     ""maps"": [
         {
-            ""name"": ""Keyboard"",
+            ""name"": ""PlayerActions"",
             ""id"": ""e33c56d7-e66e-4f0b-9262-f7b226c171f0"",
             ""actions"": [
                 {
-                    ""name"": ""New action"",
+                    ""name"": ""Move"",
                     ""type"": ""Value"",
                     ""id"": ""3d35b985-e736-4f5e-9e69-4ce7b3f67df5"",
                     ""expectedControlType"": ""Vector2"",
@@ -45,7 +45,7 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""New action"",
+                    ""action"": ""Move"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -56,7 +56,7 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""New action"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -67,7 +67,7 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""New action"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -78,7 +78,7 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""New action"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -89,7 +89,7 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""New action"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 }
@@ -98,9 +98,9 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
     ],
     ""controlSchemes"": []
 }");
-        // Keyboard
-        m_Keyboard = asset.FindActionMap("Keyboard", throwIfNotFound: true);
-        m_Keyboard_Newaction = m_Keyboard.FindAction("New action", throwIfNotFound: true);
+        // PlayerActions
+        m_PlayerActions = asset.FindActionMap("PlayerActions", throwIfNotFound: true);
+        m_PlayerActions_Move = m_PlayerActions.FindAction("Move", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -157,40 +157,40 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Keyboard
-    private readonly InputActionMap m_Keyboard;
-    private IKeyboardActions m_KeyboardActionsCallbackInterface;
-    private readonly InputAction m_Keyboard_Newaction;
-    public struct KeyboardActions
+    // PlayerActions
+    private readonly InputActionMap m_PlayerActions;
+    private IPlayerActionsActions m_PlayerActionsActionsCallbackInterface;
+    private readonly InputAction m_PlayerActions_Move;
+    public struct PlayerActionsActions
     {
         private @PlayerInputs m_Wrapper;
-        public KeyboardActions(@PlayerInputs wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Newaction => m_Wrapper.m_Keyboard_Newaction;
-        public InputActionMap Get() { return m_Wrapper.m_Keyboard; }
+        public PlayerActionsActions(@PlayerInputs wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Move => m_Wrapper.m_PlayerActions_Move;
+        public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(KeyboardActions set) { return set.Get(); }
-        public void SetCallbacks(IKeyboardActions instance)
+        public static implicit operator InputActionMap(PlayerActionsActions set) { return set.Get(); }
+        public void SetCallbacks(IPlayerActionsActions instance)
         {
-            if (m_Wrapper.m_KeyboardActionsCallbackInterface != null)
+            if (m_Wrapper.m_PlayerActionsActionsCallbackInterface != null)
             {
-                @Newaction.started -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnNewaction;
-                @Newaction.performed -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnNewaction;
-                @Newaction.canceled -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnNewaction;
+                @Move.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnMove;
+                @Move.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnMove;
+                @Move.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnMove;
             }
-            m_Wrapper.m_KeyboardActionsCallbackInterface = instance;
+            m_Wrapper.m_PlayerActionsActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Newaction.started += instance.OnNewaction;
-                @Newaction.performed += instance.OnNewaction;
-                @Newaction.canceled += instance.OnNewaction;
+                @Move.started += instance.OnMove;
+                @Move.performed += instance.OnMove;
+                @Move.canceled += instance.OnMove;
             }
         }
     }
-    public KeyboardActions @Keyboard => new KeyboardActions(this);
-    public interface IKeyboardActions
+    public PlayerActionsActions @PlayerActions => new PlayerActionsActions(this);
+    public interface IPlayerActionsActions
     {
-        void OnNewaction(InputAction.CallbackContext context);
+        void OnMove(InputAction.CallbackContext context);
     }
 }
