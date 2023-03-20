@@ -18,6 +18,7 @@ public class Pickup : MonoBehaviour
             switch (pickupType)
             {
                 case PickupType.Coin:
+                    GameManager.instance.score++;
                     // Do on pick up coin
                     break;
             }
