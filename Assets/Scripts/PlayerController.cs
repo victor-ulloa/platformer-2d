@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour, PlayerInputs.IPlayerActionsAction
 
     float moveInput;
 
-    PlayerInputs playerInputs;
+    [HideInInspector] public PlayerInputs playerInputs;
     Rigidbody2D rb;
     Animator animator;
 
