@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour, PlayerInputs.IPlayerActionsAction
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && isGrounded)
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Force);
         }
