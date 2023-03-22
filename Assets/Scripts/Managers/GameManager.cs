@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
 
 
     [HideInInspector] public UnityEvent<int> OnScoreValueChanged;
+    [HideInInspector] public UnityEvent<int> OnAttemptsValueChanged;
 
     // SCORE
     private int _score = 0;
@@ -27,7 +28,18 @@ public class GameManager : MonoBehaviour
         {
             _score = value;
             OnScoreValueChanged.Invoke(_score);
-            Debug.Log("Your score is:" + score.ToString());
+        }
+    }
+
+    // ATTEMPTS
+    private int _attempts = 1;
+    public int attempts
+    {
+        get { return _attempts; }
+        set
+        {
+            _attempts = value;
+            OnAttemptsValueChanged.Invoke(_attempts);
         }
     }
 
@@ -47,6 +59,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         SpawnPlayer(currentSpawnPoint);
+        score = 0;
+        attempts = 1;
     }
 
     public void SpawnPlayer(Transform spawnLocation)
@@ -57,5 +71,6 @@ public class GameManager : MonoBehaviour
     public void Respawn()
     {
         playerInstance.transform.position = currentSpawnPoint.position;
+        attempts ++;
     }
 }
